@@ -10,3 +10,11 @@ class Item(Base):
 
     def __repr__(self):
         return f"<Item name={self.name}>"
+
+class File(Base):
+    __tablename__ = 'file'
+    name = Column(String(40), nullable=False, primary_key=True, unique=True)
+    filepath = Column(String(500), nullable=False, unique=True)
+
+    def __repr__(self):
+        return f"<File name={self.name}>"
