@@ -3,6 +3,7 @@ from pydantic import BaseModel, Field
 from database import SessionLocal
 from typing import List, Optional
 import models
+import uvicorn
 
 app = FastAPI()
 db = SessionLocal()
@@ -82,4 +83,7 @@ def deleteItem(item_id: str):
     db.commit()
 
     return check_item
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=20774)
 
