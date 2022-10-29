@@ -1,6 +1,15 @@
 version: '3'
-services: 
-  jenkins: 
+services:
+  trial-app:
+    build:
+      dockerfile: Dockerfile
+    ports:
+     - "20774:20774"
+    depends_on:
+      - jenkins
+      - postgres
+
+  jenkins:
     container_name: jenkins
     image: jenkins/jenkins
     ports:
@@ -10,5 +19,21 @@ services:
     networks:
       - net
 
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=law-lab4
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgres/data
+
+volumes:
+  db:
+    driver: local
+
 networks:
-  net: 
+  net:
